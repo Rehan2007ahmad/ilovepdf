@@ -1,5 +1,4 @@
-import JPGToPNG from "./JPGtoPNGClient";
-
+import JPGToPNG from "./JPGToPNGClient";
 
 
 export const metadata = {
