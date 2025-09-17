@@ -1,8 +1,0 @@
-{
-  "version": 2,
-  "functions": {
-    "api/tools/jpg-to-png/route.ts": { "runtime": "vercel-node@18.16.0" },
-    "api/tools/png-to-jpg/route.ts": { "runtime": "vercel-node@18.16.0" },
-    "api/tools/webp-to-jpg/route.ts": { "runtime": "vercel-node@18.16.0" }
-  }
-}
