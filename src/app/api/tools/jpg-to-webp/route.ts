@@ -19,7 +19,7 @@ export async function POST(req: Request) {
 
     const webpBuffer = await sharp(buffer).webp().toBuffer();
 
-    return new NextResponse(webpBuffer, {
+    return new NextResponse(new Uint8Array(webpBuffer), {
       status: 200,
       headers: {
         "Content-Type": "image/webp",
