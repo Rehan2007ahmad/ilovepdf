@@ -3,20 +3,18 @@ import { FaFilePdf, FaFileImage, FaFileWord, FaLink, FaCut, FaCompress } from "r
 import { motion } from "framer-motion";
 import Link from "next/link";
 
-
 const converters = [
-  { name: "JPG to PNG", icon: <FaFileImage size={40} />, slug: "jpg-to-png" },
+  { name: "JPGG to PNG", icon: <FaFileImage size={40} />, slug: "jpg-to-png" },
   { name: "PNG to JPG", icon: <FaFileImage size={40} />, slug: "png-to-jpg" },
   { name: "WEBP to JPG", icon: <FaFileImage size={40} />, slug: "webp-to-jpg" },
   { name: "JPG to WEBP", icon: <FaFileImage size={40} />, slug: "jpg-to-webp" },
   { name: "Image to PDF", icon: <FaFilePdf size={40} />, slug: "image-to-pdf" },
-  { name: "PDF to Word", icon: <FaFileWord size={40} />, slug: "pdf-to-word" }, 
+  { name: "PDF to Word", icon: <FaFileWord size={40} />, slug: "pdf-to-word" },
   { name: "Word to PDF", icon: <FaFilePdf size={40} />, slug: "word-to-pdf" },
   { name: "Merge PDF", icon: <FaLink size={40} />, slug: "merge-pdf" },
   { name: "Split PDF", icon: <FaCut size={40} />, slug: "split-pdf" },
   { name: "Compress PDF", icon: <FaCompress size={40} />, slug: "compress-pdf" },
 ];
-
 
 export default function Features() {
   return (
@@ -24,8 +22,9 @@ export default function Features() {
       className="py-20 bg-gray-800 text-yellow-400"
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={{ once: true, amount: 0.1 }}
       transition={{ duration: 0.8 }}
+      animate={{ opacity: 1, y: 0 }} // fallback for older devices
     >
       <div className="max-w-7xl mx-auto px-4">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
@@ -38,7 +37,9 @@ export default function Features() {
               className="bg-gray-900 p-8 rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-1 transition transform text-center"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ duration: 0.6 }}
+              animate={{ opacity: 1, y: 0 }} // fallback
             >
               <div className="flex justify-center items-center mb-4">
                 {tool.icon}
@@ -47,9 +48,9 @@ export default function Features() {
               <p className="text-gray-300">
                 Perform {tool.name.toLowerCase()} easily and quickly.
               </p>
-     
+
               <Link href={`/tools/${tool.slug}`}>
-                <button className="cursor-pointer mt-4 px-6 py-3 bg-yellow-500 text-gray-900 font-semibold rounded-full hover:bg-yellow-400 transition ">
+                <button className="cursor-pointer mt-4 px-6 py-3 bg-yellow-500 text-gray-900 font-semibold rounded-full hover:bg-yellow-400 transition">
                   Start
                 </button>
               </Link>
