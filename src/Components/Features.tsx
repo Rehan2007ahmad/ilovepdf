@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 
 const converters = [
-  { name: "JPGG to PNG", icon: <FaFileImage size={40} />, slug: "jpg-to-png" },
+  { name: "JPG to PNG", icon: <FaFileImage size={40} />, slug: "jpg-to-png" },
   { name: "PNG to JPG", icon: <FaFileImage size={40} />, slug: "png-to-jpg" },
   { name: "WEBP to JPG", icon: <FaFileImage size={40} />, slug: "webp-to-jpg" },
   { name: "JPG to WEBP", icon: <FaFileImage size={40} />, slug: "jpg-to-webp" },
