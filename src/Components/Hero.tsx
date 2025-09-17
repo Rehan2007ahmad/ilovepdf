@@ -1,15 +1,23 @@
-"use client"
+"use client";
+
 import React from "react";
 import { FaFilePdf, FaFileWord, FaCompress } from "react-icons/fa";
 import { motion } from "framer-motion";
-import Wave from "./Wave"; // Make sure Wave.tsx is in the same folder
+import Link from "next/link";
+import Wave from "./Wave";
+
+const heroTools = [
+  { name: "Wordd to PDF", icon: <FaFileWord />, slug: "word-to-pdf" },
+  { name: "PDF to Word", icon: <FaFilePdf />, slug: "pdf-to-word" },
+  { name: "Compress PDF", icon: <FaCompress />, slug: "compress-pdf" },
+];
 
 export default function Hero() {
   return (
     <section className="relative bg-gray-900 text-yellow-400 overflow-hidden">
       <motion.div
         className="absolute bottom-0 w-full"
-        animate={{ y: [0, 10, 0] }} 
+        animate={{ y: [0, 10, 0] }}
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
       >
         <Wave fill="#111827" />
@@ -20,19 +28,17 @@ export default function Hero() {
           Your Online PDF Tools
         </h1>
         <p className="text-lg md:text-xl mb-8 text-gray-300">
-          Merge, Split, Compress, and Convert PDFs instantly. Dark mode + yellow accent theme.
+          Merge, Split, Compress, and Convert PDFs instantly.
         </p>
 
         <div className="flex flex-wrap justify-center gap-4">
-          <button className="cursor-pointer  flex items-center gap-2 bg-yellow-500 text-gray-900 font-semibold px-6 py-3 rounded-full hover:bg-yellow-400 transition transform hover:-translate-y-1">
-            <FaFileWord /> Word to PDF
-          </button>
-          <button className="cursor-pointer flex items-center gap-2 bg-yellow-500 text-gray-900 font-semibold px-6 py-3 rounded-full hover:bg-yellow-400 transition transform hover:-translate-y-1">
-            <FaFilePdf /> PDF to Word
-          </button>
-          <button className="cursor-pointer flex items-center gap-2 bg-yellow-500 text-gray-900 font-semibold px-6 py-3 rounded-full hover:bg-yellow-400 transition transform hover:-translate-y-1">
-            <FaCompress /> Compress PDF
-          </button>
+          {heroTools.map((tool) => (
+            <Link key={tool.slug} href={`/tools/${tool.slug}`}>
+              <button className="cursor-pointer flex items-center gap-2 bg-yellow-500 text-gray-900 font-semibold px-6 py-3 rounded-full hover:bg-yellow-400 transition transform hover:-translate-y-1">
+                {tool.icon} {tool.name}
+              </button>
+            </Link>
+          ))}
         </div>
       </div>
     </section>
