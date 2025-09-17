@@ -19,12 +19,11 @@ export async function POST(req: Request) {
 
     const jpgBuffer = await sharp(buffer).jpeg().toBuffer();
 
-    return new NextResponse(new Uint8Array(jpgBuffer), {
+    return new NextResponse(jpgBuffer, {
       status: 200,
       headers: {
         "Content-Type": "image/jpeg",
         "Content-Disposition": `attachment; filename="${file.name.replace(/\.[^/.]+$/, "")}.jpg"`,
-
       },
     });
   } catch (err) {

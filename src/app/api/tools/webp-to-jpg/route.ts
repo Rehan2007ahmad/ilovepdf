@@ -22,7 +22,7 @@ export async function POST(req: Request) {
 
     const jpgBuffer = await sharp(buffer).jpeg().toBuffer();
 
-    return new NextResponse(new Uint8Array(jpgBuffer), {
+    return new NextResponse(jpgBuffer, {
       status: 200,
       headers: {
         "Content-Type": "image/jpeg",
@@ -30,7 +30,6 @@ export async function POST(req: Request) {
           /\.[^/.]+$/,
           ""
         )}.jpg"`,
-
       },
     });
   } catch (err) {
