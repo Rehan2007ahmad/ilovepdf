@@ -10,26 +10,20 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "No file uploaded" }, { status: 400 });
     }
 
-    if (file.type !== "image/webp") {
-      return NextResponse.json(
-        { error: "Only WEBP files are allowed!" },
-        { status: 400 }
-      );
+    if (file.type !== "image/jpeg") {
+      return NextResponse.json({ error: "Only JPG files are allowed!" }, { status: 400 });
     }
 
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
 
-    const jpgBuffer = await sharp(buffer).jpeg().toBuffer();
+    const webpBuffer = await sharp(buffer).webp().toBuffer();
 
-    return new NextResponse(jpgBuffer, {
+    return new NextResponse(webpBuffer, {
       status: 200,
       headers: {
-        "Content-Type": "image/jpeg",
-        "Content-Disposition": `attachment; filename="${file.name.replace(
-          /\.[^/.]+$/,
-          ""
-        )}.jpg"`,
+        "Content-Type": "image/webp",
+        "Content-Disposition": `attachment; filename="${file.name.replace(/\.[^/.]+$/, "")}.webp"`,
       },
     });
   } catch (err) {

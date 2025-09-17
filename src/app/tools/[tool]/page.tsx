@@ -1,18 +1,21 @@
 import JPGToPNGClient from "./JPGToPNGClient";
 import PNGToJPGClient from "./PNGToJPGClient";
 import WEBPToJPGClient from "./WEBPToJPGClient";
+import JPGToWEBPClient from "./JPGToWEBPClient";
 
 
 const toolComponents: Record<string, React.ComponentType<{ tool: string }>> = {
   "jpg-to-png": JPGToPNGClient,
   "png-to-jpg": PNGToJPGClient,
   "webp-to-jpg": WEBPToJPGClient,
+  "jpg-to-webp": JPGToWEBPClient,
 };
 
 const toolNames: Record<string, string> = {
   "jpg-to-png": "JPG to PNG Converter",
   "png-to-jpg": "PNG to JPG Converter",
   "webp-to-jpg": "WEBP to JPG Converter",
+  "jpg-to-webp": "JPG to WEBP Converter",
 };
 
 export async function generateMetadata({
