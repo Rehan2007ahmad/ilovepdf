@@ -4,7 +4,7 @@ import Spinner from "@/Components/Spinner";
 import { useState } from "react";
 import { FaUpload } from "react-icons/fa";
 
-export default function JPGToPNG({ tool }: { tool?: string }) {
+export default function JPGToPNG() {
   const [file, setFile] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
