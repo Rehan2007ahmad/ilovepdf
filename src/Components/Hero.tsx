@@ -7,7 +7,7 @@ import Link from "next/link";
 import Wave from "./Wave";
 
 const heroTools = [
-  { name: "Wordd to PDF", icon: <FaFileWord />, slug: "word-to-pdf" },
+  { name: "Word to PDF", icon: <FaFileWord />, slug: "word-to-pdf" },
   { name: "PDF to Word", icon: <FaFilePdf />, slug: "pdf-to-word" },
   { name: "Compress PDF", icon: <FaCompress />, slug: "compress-pdf" },
 ];
@@ -15,13 +15,13 @@ const heroTools = [
 export default function Hero() {
   return (
     <section className="relative bg-gray-900 text-yellow-400 overflow-hidden">
-      <motion.div
+      {/* <motion.div
         className="absolute bottom-0 w-full"
         animate={{ y: [0, 10, 0] }}
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
       >
         <Wave fill="#111827" />
-      </motion.div>
+      </motion.div> */}
 
       <div className="max-w-6xl mx-auto px-4 py-32 relative z-10 text-center">
         <h1 className="text-5xl md:text-6xl font-bold mb-4">
