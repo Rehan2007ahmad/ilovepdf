@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  FaFilePdf,
   FaFileWord,
   FaCompress,
   FaLink,

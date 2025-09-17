@@ -55,6 +55,7 @@ export default function JPGToPNG() {
       link.click();
       document.body.removeChild(link);
     } catch (err) {
+      console.log(err)
       setError("Something went wrong. Try again!");
     } finally {
       setLoading(false);
