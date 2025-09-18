@@ -1,15 +1,15 @@
 "use client";
 
 import React from "react";
-import { FaFilePdf, FaFileWord, FaCompress } from "react-icons/fa";
+import { FaFileImage, FaFilePdf } from "react-icons/fa";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Wave from "./Wave";
 
 const heroTools = [
-  { name: "Wordd to PDF", icon: <FaFileWord />, slug: "word-to-pdf" },
-  { name: "PDF to Word", icon: <FaFilePdf />, slug: "pdf-to-word" },
-  { name: "Compress PDF", icon: <FaCompress />, slug: "compress-pdf" },
+  { name: "JPG to PNG", icon: <FaFileImage size={40} />, slug: "jpg-to-png" },
+  { name: "Image to PDF", icon: <FaFilePdf size={40} />, slug: "image-to-pdf" },
+  { name: "WEBP to JPG", icon: <FaFileImage size={40} />, slug: "webp-to-jpg" },
 ];
 
 export default function Hero() {
