@@ -3,6 +3,7 @@ import PNGToJPGClient from "./PNGToJPGClient";
 import WEBPToJPGClient from "./WEBPToJPGClient";
 import JPGToWEBPClient from "./JPGToWEBPClient";
 import ImageToPDFClient from "./ImageToPDFClient";
+import MERGPDFClient from "./Merge-pdfClient";
 
 
 const toolComponents: Record<string, React.ComponentType<{ tool: string }>> = {
@@ -11,6 +12,7 @@ const toolComponents: Record<string, React.ComponentType<{ tool: string }>> = {
   "webp-to-jpg": WEBPToJPGClient,
   "jpg-to-webp": JPGToWEBPClient,
   "image-to-pdf": ImageToPDFClient,
+  "merge-pdf": MERGPDFClient,
 };
 
 const toolNames: Record<string, string> = {
@@ -19,7 +21,8 @@ const toolNames: Record<string, string> = {
   "webp-to-jpg": "WEBP to JPG Converter",
   "jpg-to-webp": "JPG to WEBP Converter",
   "image-to-pdf": "Image to PDF Converter",
-  "pdf-to-word":"Pdf to Word Converter"
+  "pdf-to-word":"Pdf to Word Converter",
+  "merge-pdf": "Merge PDF Files",
 };
 
 export async function generateMetadata({
