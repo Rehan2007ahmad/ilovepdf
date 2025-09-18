@@ -19,6 +19,7 @@ const toolNames: Record<string, string> = {
   "webp-to-jpg": "WEBP to JPG Converter",
   "jpg-to-webp": "JPG to WEBP Converter",
   "image-to-pdf": "Image to PDF Converter",
+  "pdf-to-word":"Pdf to Word Converter"
 };
 
 export async function generateMetadata({

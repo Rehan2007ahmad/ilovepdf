@@ -24,6 +24,7 @@
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
+    "@types/pdf-parse": "^1.1.5",
     "@types/pdfkit": "^0.17.3",
     "@types/react": "^19",
     "@types/react-dom": "^19",
@@ -31,5 +32,8 @@
     "eslint-config-next": "15.5.3",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "optionalDependencies": {
+    "canvas": "^3.2.0"
   }
 }
