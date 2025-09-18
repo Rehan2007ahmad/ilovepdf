@@ -2,6 +2,7 @@ import JPGToPNGClient from "./JPGToPNGClient";
 import PNGToJPGClient from "./PNGToJPGClient";
 import WEBPToJPGClient from "./WEBPToJPGClient";
 import JPGToWEBPClient from "./JPGToWEBPClient";
+import ImageToPDFClient from "./ImageToPDFClient";
 
 
 const toolComponents: Record<string, React.ComponentType<{ tool: string }>> = {
@@ -9,6 +10,7 @@ const toolComponents: Record<string, React.ComponentType<{ tool: string }>> = {
   "png-to-jpg": PNGToJPGClient,
   "webp-to-jpg": WEBPToJPGClient,
   "jpg-to-webp": JPGToWEBPClient,
+  "image-to-pdf": ImageToPDFClient,
 };
 
 const toolNames: Record<string, string> = {
@@ -16,6 +18,7 @@ const toolNames: Record<string, string> = {
   "png-to-jpg": "PNG to JPG Converter",
   "webp-to-jpg": "WEBP to JPG Converter",
   "jpg-to-webp": "JPG to WEBP Converter",
+  "image-to-pdf": "Image to PDF Converter",
 };
 
 export async function generateMetadata({
