@@ -52,17 +52,25 @@ function SortableItem({
       ref={setNodeRef}
       style={style}
       {...attributes}
-      {...listeners}
-      className="bg-yellow-500 text-gray-900 "
+      className="bg-yellow-500 text-gray-900"
     >
-      <span className="truncate">{item.file.name}</span>
-      <FaTrash
-        className="text-red-600 hover:text-red-800 cursor-pointer ml-4"
+      
+      <span className="truncate flex-1" {...listeners}>
+        {item.file.name}
+      </span>
+      
+      <button
+        type="button"
         onClick={(e) => {
-          e.stopPropagation(); 
+          e.preventDefault();
+          e.stopPropagation();
           onDelete(item.id);
         }}
-      />
+        className="text-red-600 hover:text-red-800 cursor-pointer ml-4 p-1 rounded  transition-colors"
+        aria-label={`Delete ${item.file.name}`}
+      >
+        <FaTrash />
+      </button>
     </div>
   );
 }
@@ -149,7 +157,7 @@ export default function MergePDF() {
 
         {error && <p className="text-red-500 mb-4">{error}</p>}
 
-        {/* Upload Button */}
+        
         <div className="flex justify-center mb-4">
           <label className="flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 font-semibold rounded-full transition transform bg-yellow-500 text-gray-900 hover:bg-yellow-400 cursor-pointer hover:-translate-y-1 w-[200px] justify-center">
             <FaUpload /> Upload PDFs
@@ -163,7 +171,6 @@ export default function MergePDF() {
           </label>
         </div>
 
-        {/* Files List */}
         {files.length > 0 && (
           <DndContext
             sensors={sensors}
@@ -187,7 +194,6 @@ export default function MergePDF() {
           </DndContext>
         )}
 
-        {/* Merge Button */}
         {files.length > 0 && (
           <div className="flex justify-center">
             <button
