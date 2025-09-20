@@ -29,27 +29,28 @@ export default function SplitPDF() {
 
     setFile(selectedFile);
     setError(null);
-    
-    
+
     try {
       const formData = new FormData();
       formData.append("file", selectedFile);
-      
+
       const res = await fetch("/api/tools/pdf-info", {
         method: "POST",
         body: formData,
       });
-      
+
       if (res.ok) {
         const data = await res.json();
         setTotalPages(data.pageCount);
-        
-        setSplitRanges([{
-          id: crypto.randomUUID(),
-          startPage: 1,
-          endPage: data.pageCount,
-          name: "Full Document"
-        }]);
+
+        setSplitRanges([
+          {
+            id: crypto.randomUUID(),
+            startPage: 1,
+            endPage: data.pageCount,
+            name: "Full Document",
+          },
+        ]);
       }
     } catch (err) {
       console.error("Error getting PDF info:", err);
@@ -62,21 +63,25 @@ export default function SplitPDF() {
       id: crypto.randomUUID(),
       startPage: 1,
       endPage: totalPages,
-      name: `Split ${splitRanges.length + 1}`
+      name: `Split ${splitRanges.length + 1}`,
     };
-    setSplitRanges(prev => [...prev, newRange]);
+    setSplitRanges((prev) => [...prev, newRange]);
   };
 
-  const updateSplitRange = (id: string, field: keyof SplitRange, value: string | number) => {
-    setSplitRanges(prev => 
-      prev.map(range => 
+  const updateSplitRange = (
+    id: string,
+    field: keyof SplitRange,
+    value: string | number
+  ) => {
+    setSplitRanges((prev) =>
+      prev.map((range) =>
         range.id === id ? { ...range, [field]: value } : range
       )
     );
   };
 
   const deleteSplitRange = (id: string) => {
-    setSplitRanges(prev => prev.filter(range => range.id !== id));
+    setSplitRanges((prev) => prev.filter((range) => range.id !== id));
   };
 
   const validateRanges = (): boolean => {
@@ -133,7 +138,7 @@ export default function SplitPDF() {
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      
+
       URL.revokeObjectURL(url);
     } catch (err) {
       console.error(err);
@@ -160,7 +165,6 @@ export default function SplitPDF() {
 
         {error && <p className="text-red-500 mb-4">{error}</p>}
 
-        
         <div className="flex justify-center mb-6">
           <label className="flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 font-semibold rounded-full transition transform bg-yellow-500 text-gray-900 hover:bg-yellow-400 cursor-pointer hover:-translate-y-1 w-[200px] justify-center">
             <FaUpload /> Upload PDF
@@ -173,13 +177,16 @@ export default function SplitPDF() {
           </label>
         </div>
 
-        
         {file && (
           <div className="mb-6">
             <div className="bg-yellow-500 text-gray-900 inline-flex items-center justify-between px-4 py-2 rounded-full mb-4 max-w-md">
-              <span className="truncate mr-4 font-semibold capitalize">{file.name}</span>
+              <span className="truncate mr-4 font-semibold capitalize">
+                {file.name}
+              </span>
               <div className="flex items-center gap-2">
-                <span className="font-semibold capitalize">({totalPages} pages)</span>
+                <span className="font-semibold capitalize">
+                  ({totalPages} pages)
+                </span>
                 <button
                   onClick={clearFile}
                   className="text-red-600 hover:text-red-800 cursor-pointer"
@@ -192,10 +199,8 @@ export default function SplitPDF() {
           </div>
         )}
 
-        
         {file && totalPages > 0 && (
           <div className="mb-6">
-
             <div className="flex items-center justify-center gap-4 mb-6">
               <h3 className="text-xl font-semibold">Split Ranges</h3>
               <button
@@ -205,75 +210,97 @@ export default function SplitPDF() {
                 <FaPlus className="text-sm" /> Add Range
               </button>
             </div>
-            
-          {/* need to fix ui */}
-            <div className="space-y-6 max-w-4xl mx-auto">
+
+            <div className="space-y-4 max-w-4xl mx-auto">
               {splitRanges.map((range) => (
-                <div key={range.id} className="space-y-4">
-                  <div className="flex flex-col sm:flex-row items-center justify-center gap-4 flex-wrap">
-                    
+                <div
+                  key={range.id}
+                  className="bg-gray-800/10 rounded-2xl p-6 border border-gray-700/20"
+                >
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
                     <div className="flex flex-col items-center">
-                      <label className="text-sm font-medium mb-2 text-yellow-400">Name</label>
+                      <label className="text-sm font-medium mb-2 text-yellow-400">
+                        Name
+                      </label>
                       <input
                         type="text"
                         value={range.name}
-                        onChange={(e) => updateSplitRange(range.id, "name", e.target.value)}
-                        className="w-[200px] px-4 py-2 sm:py-3 bg-yellow-500 text-gray-900 font-semibold rounded-full text-center focus:bg-yellow-400 focus:outline-none transition-colors placeholder-gray-700"
+                        onChange={(e) =>
+                          updateSplitRange(range.id, "name", e.target.value)
+                        }
+                        className="w-[200px] md:w-full px-4 py-2 sm:py-3 bg-yellow-500 text-gray-900 font-semibold rounded-full text-center focus:bg-yellow-400 focus:outline-none transition-colors placeholder-gray-700"
                         placeholder="Enter name"
                       />
                     </div>
-                    
+
                     <div className="flex flex-col items-center">
-                      <label className="text-sm font-medium mb-2 text-yellow-400">Start Page</label>
+                      <label className="text-sm font-medium mb-2 text-yellow-400">
+                        Start Page
+                      </label>
                       <input
                         type="number"
                         min="1"
                         max={totalPages}
                         value={range.startPage}
-                        onChange={(e) => updateSplitRange(range.id, "startPage", parseInt(e.target.value) || 1)}
-                        className="w-[120px] px-4 py-2 sm:py-3 bg-yellow-500 text-gray-900 font-semibold rounded-full text-center focus:bg-yellow-400 focus:outline-none transition-colors"
+                        onChange={(e) =>
+                          updateSplitRange(
+                            range.id,
+                            "startPage",
+                            parseInt(e.target.value) || 1
+                          )
+                        }
+                        className="w-[200px] md:w-full px-4 py-2 sm:py-3 bg-yellow-500 text-gray-900 font-semibold rounded-full text-center focus:bg-yellow-400 focus:outline-none transition-colors"
                       />
                     </div>
-                    
+
                     <div className="flex flex-col items-center">
-                      <label className="text-sm font-medium mb-2 text-yellow-400">End Page</label>
+                      <label className="text-sm font-medium mb-2 text-yellow-400">
+                        End Page
+                      </label>
                       <input
                         type="number"
                         min="1"
                         max={totalPages}
                         value={range.endPage}
-                        onChange={(e) => updateSplitRange(range.id, "endPage", parseInt(e.target.value) || totalPages)}
-                        className="w-[120px] px-4 py-2 sm:py-3 bg-yellow-500 text-gray-900 font-semibold rounded-full text-center focus:bg-yellow-400 focus:outline-none transition-colors"
+                        onChange={(e) =>
+                          updateSplitRange(
+                            range.id,
+                            "endPage",
+                            parseInt(e.target.value) || totalPages
+                          )
+                        }
+                        className="w-[200px] md:w-full px-4 py-2 sm:py-3 bg-yellow-500 text-gray-900 font-semibold rounded-full text-center focus:bg-yellow-400 focus:outline-none transition-colors"
                       />
                     </div>
-                    
+
                     <div className="flex flex-col items-center">
-                      <div className="h-6 mb-2"></div>
+                      <div className="hidden md:block h-6 mb-2"></div>
                       <button
                         onClick={() => deleteSplitRange(range.id)}
-                        className="flex items-center justify-center gap-2 px-3 py-2 text-red-500 hover:text-red-400 rounded-lg transition-colors"
+                        className="flex items-center justify-center gap-2 w-[200px] md:w-auto px-4 py-2 sm:py-3 bg-red-500/20 text-red-400 hover:bg-red-500/30 hover:text-red-300 rounded-full transition-colors font-semibold"
                         aria-label={`Delete ${range.name}`}
                       >
-                        <FaTrash /> Delete
+                        <FaTrash className="text-sm" />
+                        Delete Range
                       </button>
                     </div>
                   </div>
-                  
-                  <div className="text-center">
-                    <span className="inline-block px-4 py-1 bg-yellow-500/20 text-yellow-400 rounded-full text-sm">
-                      Pages {range.startPage} to {range.endPage} 
-                      ({Math.max(0, range.endPage - range.startPage + 1)} pages)
+
+                  <div className="mt-4 text-center">
+                    <span className="inline-block px-4 py-2 bg-yellow-500/20 text-yellow-400 rounded-full text-sm font-medium">
+                      Pages {range.startPage} to {range.endPage}
+                      <span className="text-yellow-300">
+                        • {Math.max(0, range.endPage - range.startPage + 1)}{" "}
+                        pages
+                      </span>
                     </span>
                   </div>
                 </div>
               ))}
             </div>
-
-
           </div>
         )}
 
-      
         {file && splitRanges.length > 0 && (
           <div className="flex justify-center">
             <button
@@ -285,7 +312,13 @@ export default function SplitPDF() {
                   : "bg-yellow-500 text-gray-900 hover:bg-yellow-400 hover:-translate-y-1"
               }`}
             >
-              {loading ? <Spinner /> : <><FaHandScissors /> Split PDF</>}
+              {loading ? (
+                <Spinner />
+              ) : (
+                <>
+                  <FaHandScissors /> Split PDF
+                </>
+              )}
             </button>
           </div>
         )}
