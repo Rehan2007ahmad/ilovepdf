@@ -156,8 +156,8 @@ export default function SplitPDF() {
   };
 
   return (
-    <section className="relative bg-gray-900 text-yellow-400 min-h-screen flex flex-col items-center justify-center px-4">
-      <div className="relative z-10 max-w-3xl w-full text-center">
+    <section className="relative bg-gray-900 text-yellow-400 min-h-screen flex flex-col items-center justify-center px-4 py-8">
+      <div className="relative z-10 max-w-3xl w-full text-center mb-16">
         <h1 className="text-5xl md:text-6xl font-bold mb-6">Split PDF</h1>
         <p className="text-lg md:text-xl mb-8 text-gray-300">
           Upload a PDF file and split it into multiple documents by page ranges.
@@ -200,7 +200,7 @@ export default function SplitPDF() {
         )}
 
         {file && totalPages > 0 && (
-          <div className="mb-6">
+          <div className="mb-8">
             <div className="flex items-center justify-center gap-4 mb-6">
               <h3 className="text-xl font-semibold">Split Ranges</h3>
               <button
