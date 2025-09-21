@@ -1,6 +1,6 @@
 import { MetadataRoute } from "next";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://ilovepdf-seven.vercel.app";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "";
 
 // These match your tool keys
 const tools = [

@@ -29,8 +29,7 @@ const toolNames: Record<string, string> = {
   "compress-pdf": "Compress PDF File",
 };
 
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://ilovepdf-seven.vercel.app";
+const siteUrl =process.env.NEXT_PUBLIC_SITE_URL;
 const siteTitle = process.env.NEXT_PUBLIC_SITE_TITLE;
 const keywords = process.env.NEXT_PUBLIC_SITE_KEYWORDS?.split(",").map((k) =>
   k.trim()
