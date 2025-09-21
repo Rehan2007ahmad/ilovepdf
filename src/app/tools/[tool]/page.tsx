@@ -55,7 +55,9 @@ export async function generateMetadata({
     },
     keywords: keywords,
     icons: {
-      icon: `${tool}-og.png`,
+      icon: ogImage,
+      shortcut: ogImage,
+      apple: ogImage,
     },
     authors: [{ name: "Rehan Ahmad", url: siteUrl }],
     openGraph: {
