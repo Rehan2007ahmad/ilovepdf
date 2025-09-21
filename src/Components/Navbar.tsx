@@ -10,7 +10,7 @@ export default function Navbar() {
   return (
     <header className="bg-gray-900 text-yellow-400 shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-        <h1 className="text-2xl font-bold"><Link href="/">iLovePDF</Link></h1>
+        <h2 className="text-2xl font-bold"><Link href="/">iLovePDF</Link></h2>
         <nav className="hidden md:flex space-x-6 items-center font-medium">
           <div className="group relative">
             <button className="hover:text-yellow-300 transition">Features ▼</button>
