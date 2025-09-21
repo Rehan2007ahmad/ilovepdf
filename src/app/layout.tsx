@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     description: siteDescription,
     images: [
       {
-        url: '/card.png', 
+        url: '/images/card.png', 
         width: 1200,
         height: 630,
         alt: siteTitle,
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     creator: siteAuthor,
     title: siteTitle,
     description: siteDescription,
-    images: ['/card.png'], 
+    images: ['/images/card.png'], 
   },
   verification: {
     google: siteGoogleVerification, 
