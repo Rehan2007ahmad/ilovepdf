@@ -3,7 +3,7 @@ import "./globals.css";
 import Navbar from "@/Components/Navbar";
 import Footer from "@/Components/Footer";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://ilovepdf-seven.vercel.app/';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://ilovepdf-seven.vercel.app';
 const siteTitle = process.env.NEXT_PUBLIC_SITE_TITLE;
 const siteDescription = process.env.NEXT_PUBLIC_SITE_DESCRIPTION;
 const siteKeywords = process.env.NEXT_PUBLIC_SITE_KEYWORDS?.split(",").map(k => k.trim());

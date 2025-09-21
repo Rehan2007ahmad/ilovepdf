@@ -29,28 +29,40 @@ const toolNames: Record<string, string> = {
   "compress-pdf": "Compress PDF File",
 };
 
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://ilovepdf-seven.vercel.app";
+const siteTitle = process.env.NEXT_PUBLIC_SITE_TITLE;
+const keywords = process.env.NEXT_PUBLIC_SITE_KEYWORDS?.split(",").map((k) =>
+  k.trim()
+);
+
 export async function generateMetadata({
   params,
 }: {
   params: { tool: string };
 }) {
   const { tool } = await params;
-  const title = toolNames[tool] || "Online File Converter";
+  const title = toolNames[tool];
   const description = `Use the ${title} online tool to convert your files instantly. Upload your files and download the result in seconds.`;
-  const url = `https://yourwebsite.com/tools/${tool}`;
-  const ogImage = `https://yourwebsite.com/images/${tool}-og.png`;
+  const url = `${siteUrl}/tools/${tool}`;
+  const ogImage = `${siteUrl}/images/${tool}-og.png`;
 
   return {
     title,
     description,
-    canonical: url,
-    keywords: [title, "File Converter", "Online Tool", "Free Converter"],
-    authors: [{ name: "Rehan Ahmad", url: "https://yourwebsite.com" }],
+    alternates: {
+      canonical: url,
+    },
+    keywords: keywords,
+    icons: {
+      icon: `${tool}-og.png`,
+    },
+    authors: [{ name: "Rehan Ahmad", url: siteUrl }],
     openGraph: {
       title,
       description,
       url,
-      siteName: "MyTools",
+      siteName: siteTitle,
       type: "website",
       locale: "en_US",
       images: [{ url: ogImage, width: 1200, height: 630, alt: title }],
