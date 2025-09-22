@@ -1,5 +1,5 @@
 "use client";
-import { FaFilePdf, FaFileImage, FaFileWord, FaLink, FaCut, FaCompress } from "react-icons/fa";
+import { FaFilePdf, FaFileImage, FaLink, FaCut, FaCompress } from "react-icons/fa";
 import { motion } from "framer-motion";
 import Link from "next/link";
 

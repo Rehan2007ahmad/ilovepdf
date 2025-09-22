@@ -6,6 +6,12 @@ export const config = { api: { bodyParser: false } };
 
 type ImageData = { type: "jpeg" | "png"; data: Uint8Array };
 
+type ParagraphStyle = {
+  heading?: number;
+  bold: boolean;
+  italic: boolean;
+};
+
 export async function POST(req: NextRequest) {
   try {
     const contentType = req.headers.get("content-type") || "";
@@ -23,24 +29,20 @@ export async function POST(req: NextRequest) {
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
 
-    // Load Word doc as ZIP
     const zip = await JSZip.loadAsync(buffer);
     const documentXml = await zip.file("word/document.xml")?.async("text");
     if (!documentXml) throw new Error("Invalid .docx file");
 
-    // Extract images from /word/media
     const images = await extractImages(zip);
 
-    // Parse paragraphs with styles & detect image references
     const paragraphs = parseParagraphsWithStyles(documentXml, images);
 
-    // Create PDF
     const pdfDoc = await PDFDocument.create();
     const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
     const fontBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
     const fontItalic = await pdfDoc.embedFont(StandardFonts.HelveticaOblique);
 
-    const pageSize = { width: 595, height: 842 }; // A4
+    const pageSize = { width: 595, height: 842 }; 
     let page = pdfDoc.addPage([pageSize.width, pageSize.height]);
     const margin = 50;
     let yPos = pageSize.height - margin;
@@ -114,19 +116,18 @@ export async function POST(req: NextRequest) {
         )}`,
       },
     });
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error(err);
+    const message = err instanceof Error ? err.message : "Unknown error occurred";
     return new Response(
       JSON.stringify({
         message: "Failed to convert Word to PDF",
-        error: err.message,
+        error: message,
       }),
       { status: 500, headers: { "Content-Type": "application/json" } }
     );
   }
 }
-
-// ------------------------- Helpers -------------------------
 
 async function extractImages(zip: JSZip) {
   const images = new Map<string, ImageData>();
@@ -152,7 +153,7 @@ async function extractImages(zip: JSZip) {
 function parseParagraphsWithStyles(
   xml: string,
   images: Map<string, ImageData>
-): { text: string; style: any; imageName?: string }[] {
+): { text: string; style: ParagraphStyle; imageName?: string }[] {
   const paras = xml.split(/<\/w:p>/).map((p) => {
     const text = p
       .replace(/<w:br\s*\/>/g, "\n")
@@ -160,20 +161,16 @@ function parseParagraphsWithStyles(
       .replace(/<[^>]+>/g, "")
       .trim();
 
-    // Detect heading style
     let heading: number | undefined;
     const matchHeading = p.match(/<w:pStyle w:val="Heading([1-6])"/);
     if (matchHeading) heading = parseInt(matchHeading[1]);
 
-    // Detect bold/italic in paragraph
     const bold = /<w:b\s*\/?>/.test(p);
     const italic = /<w:i\s*\/?>/.test(p);
 
-    // Detect image reference
     const matchImage = p.match(/<a:blip r:embed="rId\d+".*?\/>/);
     let imageName;
     if (matchImage) {
-      // fallback: pick first media file if can't resolve relationship
       imageName = Array.from(images.keys())[0];
     }
 
@@ -207,8 +204,6 @@ function splitLines(
   return lines;
 }
 
-// ------------------------- Image Renderer -------------------------
-
 async function renderImage(
   imageName: string,
   imageData: ImageData,
@@ -228,11 +223,10 @@ async function renderImage(
 
     if (img) {
       const maxWidth = pageSize.width - margin * 2;
-      const maxHeight = 300; // Max image height
+      const maxHeight = 300;
 
       let { width, height } = img.scale(1);
 
-      // Scale image to fit within constraints
       if (width > maxWidth) {
         const scale = maxWidth / width;
         width *= scale;
@@ -250,16 +244,16 @@ async function renderImage(
         yPos = pageSize.height - margin;
       }
 
-      const xPos = margin + (maxWidth - width) / 2; // Center image
+      const xPos = margin + (maxWidth - width) / 2;
 
       page.drawImage(img, {
         x: xPos,
         y: yPos - height,
-        width: width,
-        height: height,
+        width,
+        height,
       });
 
-      yPos -= height + 20; // Add some space after image
+      yPos -= height + 20;
     }
   } catch (error) {
     console.warn(`Error rendering image ${imageName}:`, error);
@@ -267,4 +261,3 @@ async function renderImage(
 
   return { page, yPos };
 }
-

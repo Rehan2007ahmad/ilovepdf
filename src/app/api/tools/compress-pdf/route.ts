@@ -1,29 +1,17 @@
 import { NextRequest } from "next/server";
 import { PDFDocument } from "pdf-lib";
-import multer from "multer";
 
-const upload = multer({ storage: multer.memoryStorage() });
 
-// Disable default body parsing
 export const config = {
   api: {
     bodyParser: false,
   },
 };
 
-// Middleware runner for NextRequest
-const runMiddleware = (req: NextRequest, fn: any) =>
-  new Promise<void>((resolve, reject) => {
-    fn(req, {} as any, (result: any) => {
-      if (result instanceof Error) reject(result);
-      else resolve();
-    });
-  });
 
-// POST method handler
+
 export async function POST(req: NextRequest) {
   try {
-    // Parse multipart/form-data
     let fileBuffer: Buffer | null = null;
     const contentType = req.headers.get("content-type") || "";
 
@@ -38,7 +26,6 @@ export async function POST(req: NextRequest) {
         });
       }
 
-      // Convert File to Buffer
       fileBuffer = Buffer.from(await file.arrayBuffer());
     } else {
       return new Response(JSON.stringify({ message: "Invalid request type" }), {
@@ -47,13 +34,10 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // Load PDF
     const pdfDoc = await PDFDocument.load(fileBuffer);
 
-    // Compress PDF
-    const compressedPdfBytes = await pdfDoc.save({ useObjectStreams: true, compress: true });
+    const compressedPdfBytes = await pdfDoc.save({ useObjectStreams: true });
 
-    // Return PDF as response
     return new Response(Buffer.from(compressedPdfBytes), {
       status: 200,
       headers: {
