@@ -1,8 +1,8 @@
 import { MetadataRoute } from "next";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://ilovepdf-seven.vercel.app";
 
-// These match your tool keys
+// Tools list (dynamic routes)
 const tools = [
   "jpg-to-png",
   "png-to-jpg",
@@ -15,10 +15,12 @@ const tools = [
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const now = new Date().toISOString();
+
   const staticRoutes: MetadataRoute.Sitemap = [
     {
       url: siteUrl,
-      lastModified: new Date(),
+      lastModified: now,
       changeFrequency: "daily",
       priority: 1,
     },
@@ -26,7 +28,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const toolRoutes: MetadataRoute.Sitemap = tools.map((tool) => ({
     url: `${siteUrl}/tools/${tool}`,
-    lastModified: new Date(),
+    lastModified: now,
     changeFrequency: "weekly",
     priority: 0.8,
   }));
