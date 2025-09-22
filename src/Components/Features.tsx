@@ -50,7 +50,7 @@ export default function Features() {
 
               <Link href={`/tools/${tool.slug}`}>
                 <button className="cursor-pointer mt-4 px-6 py-3 bg-yellow-500 text-gray-900 font-semibold rounded-full hover:bg-yellow-400 transition">
-                  Start
+                  Convert Now
                 </button>
               </Link>
             </motion.div>
