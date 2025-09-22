@@ -12,8 +12,6 @@ const converters = [
   { name: "Merge PDF", icon: <FaLink size={40} />, slug: "merge-pdf" },
   { name: "Split PDF", icon: <FaCut size={40} />, slug: "split-pdf" },
   { name: "Compress PDF", icon: <FaCompress size={40} />, slug: "compress-pdf" },
-  //we will do this later
-  { name: "PDF to Word", icon: <FaFileWord size={40} />, slug: "pdf-to-word" },
   { name: "Word to PDF", icon: <FaFilePdf size={40} />, slug: "word-to-pdf" },
 ];
 

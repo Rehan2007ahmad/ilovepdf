@@ -6,6 +6,7 @@ import ImageToPDFClient from "./ImageToPDFClient";
 import MERGPDFClient from "./Merge-pdfClient";
 import SPLITPDFClient from "./SplitPDFClient";
 import CompressPDFClient from "./CompressPDFClinet";
+import WordToPDFClient from "./WordToPDFClient";
 
 const toolComponents: Record<string, React.ComponentType<{ tool: string }>> = {
   "jpg-to-png": JPGToPNGClient,
@@ -16,6 +17,7 @@ const toolComponents: Record<string, React.ComponentType<{ tool: string }>> = {
   "merge-pdf": MERGPDFClient,
   "split-pdf": SPLITPDFClient,
   "compress-pdf": CompressPDFClient,
+  "word-to-pdf": WordToPDFClient,
 };
 
 const toolNames: Record<string, string> = {
@@ -27,6 +29,7 @@ const toolNames: Record<string, string> = {
   "merge-pdf": "Merge PDF Files",
   "split-pdf": "Split PDF File",
   "compress-pdf": "Compress PDF File",
+  "word-to-pdf": "Word to PDF Converter",
 };
 
 const siteUrl =process.env.NEXT_PUBLIC_SITE_URL;
