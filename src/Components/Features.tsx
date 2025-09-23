@@ -1,4 +1,5 @@
 "use client";
+import { TbResize } from "react-icons/tb";
 import { FaFilePdf, FaFileImage, FaLink, FaCut, FaCompress } from "react-icons/fa";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -13,6 +14,7 @@ const converters = [
   { name: "Split PDF", icon: <FaCut size={40} />, slug: "split-pdf" },
   { name: "Compress PDF", icon: <FaCompress size={40} />, slug: "compress-pdf" },
   { name: "Word to PDF", icon: <FaFilePdf size={40} />, slug: "word-to-pdf" },
+  { name: "Resize Image", icon: <TbResize size={40} />, slug: "resize-image" },
 ];
 
 export default function Features() {

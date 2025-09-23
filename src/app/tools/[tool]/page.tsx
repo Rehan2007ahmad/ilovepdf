@@ -7,6 +7,8 @@ import MERGPDFClient from "./Merge-pdfClient";
 import SPLITPDFClient from "./SplitPDFClient";
 import CompressPDFClient from "./CompressPDFClinet";
 import WordToPDFClient from "./WordToPDFClient";
+import ResizeImage from "./ResizeImage";
+
 
 const toolComponents: Record<string, React.ComponentType<{ tool: string }>> = {
   "jpg-to-png": JPGToPNGClient,
@@ -18,6 +20,7 @@ const toolComponents: Record<string, React.ComponentType<{ tool: string }>> = {
   "split-pdf": SPLITPDFClient,
   "compress-pdf": CompressPDFClient,
   "word-to-pdf": WordToPDFClient,
+  "resize-image": ResizeImage,
 };
 
 const toolNames: Record<string, string> = {
@@ -30,9 +33,10 @@ const toolNames: Record<string, string> = {
   "split-pdf": "Split PDF File",
   "compress-pdf": "Compress PDF File",
   "word-to-pdf": "Word to PDF Converter",
+  "resize-image": "Resize Image",
 };
 
-const siteUrl =process.env.NEXT_PUBLIC_SITE_URL;
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
 const siteTitle = process.env.NEXT_PUBLIC_SITE_TITLE;
 const keywords = process.env.NEXT_PUBLIC_SITE_KEYWORDS?.split(",").map((k) =>
   k.trim()
