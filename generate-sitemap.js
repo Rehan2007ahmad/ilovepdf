@@ -4,7 +4,6 @@ const path = require("path");
 
 const siteUrl = "https://ilovepdf-seven.vercel.app";
 
-// Match your tools array
 const tools = [
   "jpg-to-png",
   "png-to-jpg",
@@ -16,7 +15,6 @@ const tools = [
   "compress-pdf",
 ];
 
-// Build XML
 function generateSitemap() {
   const urls = [
     {
@@ -46,9 +44,16 @@ ${urls
   .join("")}
 </urlset>`;
 
-  const filePath = path.join(__dirname, "public", "sitemap.xml");
-  fs.writeFileSync(filePath, xml, "utf8");
-  console.log("✅ Sitemap generated at:", filePath);
+  const publicDir = path.join(__dirname, "public");
+  if (!fs.existsSync(publicDir)) {
+    fs.mkdirSync(publicDir);
+  }
+
+  const filePath = path.join(publicDir, "sitemap.xml");
+
+  // ✅ ensure UTF-8 without BOM
+  fs.writeFileSync(filePath, Buffer.from(xml, "utf8"));
+  console.log("✅ Sitemap generated clean at:", filePath);
 }
 
 generateSitemap();
