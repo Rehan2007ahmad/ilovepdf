@@ -39,12 +39,12 @@ function generateSiteMap(): string {
 </urlset>`;
 }
 
-// Explicitly type the handler
 export async function GET(request: NextRequest) {
   const sitemap = generateSiteMap();
   return new Response(sitemap, {
     headers: {
       "Content-Type": "application/xml",
+      "Cache-Control": "public, max-age=3600, stale-while-revalidate=1800",
     },
   });
 }
