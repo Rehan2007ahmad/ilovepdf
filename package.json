@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "generate-sitemap": "node generate-sitemap.js"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
