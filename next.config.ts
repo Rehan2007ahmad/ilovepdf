@@ -18,6 +18,7 @@ const nextConfig: NextConfig = {
             key: "Expires",
             value: "0",
           },
+          { key: "Content-Encoding", value: "identity" },
         ],
       },
     ];
