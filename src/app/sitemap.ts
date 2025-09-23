@@ -10,7 +10,8 @@ const tools = [
   "image-to-pdf",
   "merge-pdf",
   "split-pdf",
-  "compress-pdf"
+  "compress-pdf",
+  "word-to-pdf"
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
