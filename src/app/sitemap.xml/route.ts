@@ -1,10 +1,10 @@
-import { MetadataRoute } from "next";
+import { NextRequest } from "next/server";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://ilovepdf-seven.vercel.app";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://ilovepdf-seven.vercel.app";
 
 const tools = [
   "jpg-to-png",
-  "png-to-jpg",
+  "png-to-jpg", 
   "webp-to-jpg",
   "jpg-to-webp",
   "image-to-pdf",
@@ -14,24 +14,38 @@ const tools = [
   "word-to-pdf"
 ];
 
-export default function sitemap(): MetadataRoute.Sitemap {
+function generateSiteMap(): string {
   const now = new Date().toISOString();
-
-  const staticRoutes: MetadataRoute.Sitemap = [
-    {
-      url: siteUrl,
-      lastModified: now,
-      changeFrequency: "daily",
-      priority: 1,
-    },
-  ];
-
-  const toolRoutes: MetadataRoute.Sitemap = tools.map((tool) => ({
-    url: `${siteUrl}/tools/${tool}`,
-    lastModified: now,
-    changeFrequency: "weekly",
-    priority: 0.8,
-  }));
-
-  return [...staticRoutes, ...toolRoutes];
+  
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>${siteUrl}</loc>
+    <lastmod>${now}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  ${tools
+    .map(
+      (tool) => `
+  <url>
+    <loc>${siteUrl}/tools/${tool}</loc>
+    <lastmod>${now}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>`
+    )
+    .join('')}
+</urlset>`;
 }
+
+// Explicitly type the handler
+export async function GET(request: NextRequest) {
+  const sitemap = generateSiteMap();
+  return new Response(sitemap, {
+    headers: {
+      "Content-Type": "application/xml",
+    },
+  });
+}
+``
