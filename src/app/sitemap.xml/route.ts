@@ -11,7 +11,8 @@ const tools = [
   "merge-pdf",
   "split-pdf",
   "compress-pdf",
-  "word-to-pdf"
+  "word-to-pdf",
+  "resize-image"
 ];
 
 function generateSiteMap(): string {
