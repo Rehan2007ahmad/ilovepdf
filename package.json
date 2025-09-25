@@ -17,6 +17,7 @@
     "formidable": "^3.5.4",
     "framer-motion": "^12.23.13",
     "html2pdf.js": "^0.12.1",
+    "jimp": "^1.6.0",
     "jszip": "^3.10.1",
     "mammoth": "^1.11.0",
     "multer": "^2.0.2",

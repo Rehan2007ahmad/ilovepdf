@@ -1,4 +1,4 @@
-export const runtime = "nodejs";
+export const runtime = "nodejs"; 
 
 import { NextResponse } from "next/server";
 import sharp from "sharp";
@@ -12,9 +12,9 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "No file uploaded" }, { status: 400 });
     }
 
-    if (file.type !== "image/jpeg") {
+    if (!file.type.startsWith("image/")) {
       return NextResponse.json(
-        { error: "Only JPG files are allowed!" },
+        { error: "Only image files are allowed!" },
         { status: 400 }
       );
     }
@@ -24,7 +24,6 @@ export async function POST(req: Request) {
 
     const pngBuffer = await sharp(buffer).png().toBuffer();
 
-    // Convert Buffer to Uint8Array for NextResponse
     const uint8Array = new Uint8Array(pngBuffer);
 
     return new NextResponse(uint8Array, {
