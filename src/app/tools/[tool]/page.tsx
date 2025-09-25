@@ -60,11 +60,6 @@ export async function generateMetadata({
       canonical: url,
     },
     keywords: keywords,
-    icons: {
-      icon: ogImage,
-      shortcut: ogImage,
-      apple: ogImage,
-    },
     authors: [{ name: "Rehan Ahmad", url: siteUrl }],
     openGraph: {
       title,
