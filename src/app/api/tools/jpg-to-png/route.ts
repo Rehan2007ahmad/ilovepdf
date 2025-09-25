@@ -1,7 +1,5 @@
-export const runtime = "nodejs"; 
-
 import { NextResponse } from "next/server";
-import sharp from "sharp";
+import { Jimp } from "jimp";
 
 export async function POST(req: Request) {
   try {
@@ -12,9 +10,9 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "No file uploaded" }, { status: 400 });
     }
 
-    if (!file.type.startsWith("image/")) {
+    if (file.type !== "image/jpeg") {
       return NextResponse.json(
-        { error: "Only image files are allowed!" },
+        { error: "Only JPG files are allowed!" },
         { status: 400 }
       );
     }
@@ -22,8 +20,13 @@ export async function POST(req: Request) {
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
 
-    const pngBuffer = await sharp(buffer).png().toBuffer();
+    // Read the image with JIMP
+    const image = await Jimp.read(buffer);
+    
+    // Convert to PNG and get the buffer
+    const pngBuffer = await image.getBuffer("image/png");
 
+    // Convert Buffer to Uint8Array for NextResponse
     const uint8Array = new Uint8Array(pngBuffer);
 
     return new NextResponse(uint8Array, {
