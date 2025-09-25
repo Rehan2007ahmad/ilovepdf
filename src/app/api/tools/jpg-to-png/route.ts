@@ -20,13 +20,10 @@ export async function POST(req: Request) {
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
 
-    // Read the image with JIMP
     const image = await Jimp.read(buffer);
-    
-    // Convert to PNG and get the buffer
+
     const pngBuffer = await image.getBuffer("image/png");
 
-    // Convert Buffer to Uint8Array for NextResponse
     const uint8Array = new Uint8Array(pngBuffer);
 
     return new NextResponse(uint8Array, {
