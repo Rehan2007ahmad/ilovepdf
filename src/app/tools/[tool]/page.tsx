@@ -165,24 +165,6 @@ const generateStructuredData = (tool: string) => {
   const url = `${siteUrl}/tools/${tool}`;
   const features = toolFeatures[tool] || [];
 
-  const faqList = [
-    {
-      question: `How do I use the ${title}?`,
-      answer: `Upload your files, choose the output format, and click convert. Your file is processed instantly in the browser.`,
-    },
-    {
-      question: `Are my files safe on ${title}?`,
-      answer: `Yes, all files are securely processed and automatically deleted from our servers after conversion.`,
-    },
-    {
-      question: `Do I need to install any software for ${title}?`,
-      answer: `No installation is required. All tools work directly in your browser.`,
-    },
-    {
-      question: `Is ${title} free to use?`,
-      answer: `Yes, our ${title} tool is completely free without hidden costs.`,
-    },
-  ];
 
   return {
     "@context": "https://schema.org",
@@ -221,14 +203,7 @@ const generateStructuredData = (tool: string) => {
         ],
       },
 
-      {
-        "@type": "FAQPage",
-        mainEntity: faqList.map((faq) => ({
-          "@type": "Question",
-          name: faq.question,
-          acceptedAnswer: { "@type": "Answer", text: faq.answer },
-        })),
-      },
+      
     ],
   };
 };
